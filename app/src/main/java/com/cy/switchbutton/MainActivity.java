@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.cy.switchbuttonniubility.LogUtils;
 import com.cy.switchbuttonniubility.SimpleSwitchButton;
 
 public class MainActivity extends AppCompatActivity {
