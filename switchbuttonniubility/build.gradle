@@ -15,6 +15,7 @@ android {
     }
     buildTypes {
         release {
+            //注意;千万不能写true，否则发布到jitpack上，死丢丢下载下来是没有class文件的
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
