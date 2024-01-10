@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.cy.switchbuttonniubility.SimpleSwitchButton
+        android:layout_width="60dp"
+        android:padding="5dp"
+        android:id="@+id/SimpleSwitchButton"
+        android:layout_height="35dp" />
+    <com.cy.switchbuttonniubility.SimpleSwitchButton
+        android:layout_width="70dp"
+        android:background="#eee"
+        android:padding="5dp"
+        app:cy_color_stroke="#ff0"
+        app:cy_width_stroke="4dp"
+        app:cy_color_indicator="#f00"
+        app:cy_color_bg="#000"
+        app:cy_color_tint="#00f"
+        android:layout_marginTop="40dp"
+        android:layout_height="40dp" />
+</LinearLayout>

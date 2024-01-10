@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SimpleSwitchButton">
+        <attr name="cy_color_indicator" format="reference|color" />
+        <attr name="cy_color_bg" format="reference|color" />
+        <attr name="cy_color_tint" format="reference|color" />
+        <attr name="cy_color_stroke" format="reference|color" />
+        <attr name="cy_width_stroke" format="reference|dimension" />
+    </declare-styleable>
+</resources>
