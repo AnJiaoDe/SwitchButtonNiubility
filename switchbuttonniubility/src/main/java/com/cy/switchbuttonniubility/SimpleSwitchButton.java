@@ -49,6 +49,7 @@ public class SimpleSwitchButton extends View {
         paint_indicator.setAntiAlias(true);
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SimpleSwitchButton);
+        isChecked = typedArray.getBoolean(R.styleable.SimpleSwitchButton_cy_checked_, false);
 
         setWidth_stroke(typedArray.getDimensionPixelSize(R.styleable.SimpleSwitchButton_cy_width_stroke, ScreenUtils.dpAdapt(context, 1.3f)));
         setColor_stroke(typedArray.getColor(R.styleable.SimpleSwitchButton_cy_color_stroke, 0xffEEEEEE));
@@ -62,7 +63,7 @@ public class SimpleSwitchButton extends View {
 
         typedArray.recycle();
 
-        setShadowLayer(shadow_radius,shadow_dx,shadow_dy,color_shadow);
+        setShadowLayer(shadow_radius, shadow_dx, shadow_dy, color_shadow);
     }
 
     public void setWidth_stroke(int width_stroke) {
@@ -82,7 +83,7 @@ public class SimpleSwitchButton extends View {
     }
 
     public void setColor_tint(int color_tint) {
-        paint_tint.setColor(Color.argb(0,
+        paint_tint.setColor(Color.argb(isChecked?255:0,
                 Color.red(color_tint), Color.green(color_tint), Color.blue(color_tint)));
     }
 
@@ -101,7 +102,8 @@ public class SimpleSwitchButton extends View {
         radius_stroke = (getHeight() - getPaddingTop() - getPaddingBottom() - paint_stroke.getStrokeWidth()) * 0.5f;
         radius_tint = radius_stroke + paint_stroke.getStrokeWidth() * 0.5f;
         radius_indicator = radius_stroke - paint_stroke.getStrokeWidth() * 0.5f;
-        cx = getPaddingLeft() + paint_stroke.getStrokeWidth() + radius_indicator;
+        cx = isChecked? getWidth() - getPaddingRight() - paint_stroke.getStrokeWidth() - radius_indicator
+                :(getPaddingLeft() + paint_stroke.getStrokeWidth() + radius_indicator);
     }
 
     @Override

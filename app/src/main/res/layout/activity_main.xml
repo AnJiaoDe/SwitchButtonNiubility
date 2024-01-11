@@ -11,6 +11,7 @@
     <com.cy.switchbuttonniubility.SimpleSwitchButton
         android:layout_width="60dp"
         android:padding="5dp"
+        app:cy_checked_="true"
         android:id="@+id/SimpleSwitchButton"
         android:layout_height="35dp" />
     <com.cy.switchbuttonniubility.SimpleSwitchButton
