@@ -86,7 +86,7 @@ public class SimpleSwitchButton extends View {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        radius_stroke = (getHeight()-getPaddingTop()-getPaddingBottom() - paint_stroke.getStrokeWidth()) * 0.5f;
+        radius_stroke = (getHeight() - getPaddingTop() - getPaddingBottom() - paint_stroke.getStrokeWidth()) * 0.5f;
         radius_indicator = radius_stroke - paint_stroke.getStrokeWidth() * 0.5f;
         cx = getPaddingLeft() + paint_stroke.getStrokeWidth() + radius_indicator;
     }
@@ -107,11 +107,11 @@ public class SimpleSwitchButton extends View {
                 getHeight() - getPaddingBottom() - paint_stroke.getStrokeWidth(),
                 radius_indicator, radius_indicator, paint_bg);
 
-        canvas.drawRoundRect(getPaddingLeft() + paint_stroke.getStrokeWidth(),
-                getPaddingTop() + paint_stroke.getStrokeWidth(),
-                getWidth() - getPaddingRight() - paint_stroke.getStrokeWidth(),
-                getHeight() - getPaddingBottom() - paint_stroke.getStrokeWidth(),
-                radius_indicator, radius_indicator, paint_tint);
+        canvas.drawRoundRect(getPaddingLeft(),
+                getPaddingTop(),
+                getWidth() - getPaddingRight(),
+                getHeight() - getPaddingBottom(),
+                radius_stroke, radius_stroke, paint_tint);
 
         canvas.drawCircle(cx, getPaddingTop() + paint_stroke.getStrokeWidth() + radius_indicator,
                 radius_indicator, paint_indicator);
