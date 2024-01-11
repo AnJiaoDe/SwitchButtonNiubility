@@ -6,5 +6,9 @@
         <attr name="cy_color_tint" format="reference|color" />
         <attr name="cy_color_stroke" format="reference|color" />
         <attr name="cy_width_stroke" format="reference|dimension" />
+        <attr name="cy_color_shadow" format="reference|color" />
+        <attr name="cy_shadow_radius" format="reference|dimension" />
+        <attr name="cy_shadow_dx" format="reference|dimension" />
+        <attr name="cy_shadow_dy" format="reference|dimension" />
     </declare-styleable>
 </resources>

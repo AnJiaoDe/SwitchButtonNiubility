@@ -6,6 +6,7 @@ import android.animation.FloatEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -26,7 +27,7 @@ public class SimpleSwitchButton extends View {
     private boolean isChecked = false;
     private OnCheckedChangeListener onCheckedChangeListener;
     private int color_alpha_start;
-    private float radius_stroke;
+    private float radius_stroke, radius_tint;
 
     public SimpleSwitchButton(Context context) {
         this(context, null);
@@ -49,12 +50,19 @@ public class SimpleSwitchButton extends View {
 
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SimpleSwitchButton);
 
-        setWidth_stroke(typedArray.getDimensionPixelSize(R.styleable.SimpleSwitchButton_cy_width_stroke, ScreenUtils.dpAdapt(context, 1.5f)));
+        setWidth_stroke(typedArray.getDimensionPixelSize(R.styleable.SimpleSwitchButton_cy_width_stroke, ScreenUtils.dpAdapt(context, 1.3f)));
         setColor_stroke(typedArray.getColor(R.styleable.SimpleSwitchButton_cy_color_stroke, 0xffEEEEEE));
         setColor_bg(typedArray.getColor(R.styleable.SimpleSwitchButton_cy_color_bg, 0xffd0d0d0));
         setColor_tint(typedArray.getColor(R.styleable.SimpleSwitchButton_cy_color_tint, 0xff52D166));
         setColor_indicator(typedArray.getColor(R.styleable.SimpleSwitchButton_cy_color_indicator, 0xffffffff));
+        int shadow_radius = typedArray.getDimensionPixelSize(R.styleable.SimpleSwitchButton_cy_shadow_radius, ScreenUtils.dpAdapt(context, 4));
+        int shadow_dx = typedArray.getDimensionPixelSize(R.styleable.SimpleSwitchButton_cy_shadow_dx, ScreenUtils.dpAdapt(context, 2));
+        int shadow_dy = typedArray.getDimensionPixelSize(R.styleable.SimpleSwitchButton_cy_shadow_dy, ScreenUtils.dpAdapt(context, 2));
+        int color_shadow = typedArray.getColor(R.styleable.SimpleSwitchButton_cy_color_shadow, 0x2a000000);
+
         typedArray.recycle();
+
+        setShadowLayer(shadow_radius,shadow_dx,shadow_dy,color_shadow);
     }
 
     public void setWidth_stroke(int width_stroke) {
@@ -78,6 +86,10 @@ public class SimpleSwitchButton extends View {
                 Color.red(color_tint), Color.green(color_tint), Color.blue(color_tint)));
     }
 
+    public void setShadowLayer(float radius, float shadow_dx, float shadow_dy, int color) {
+        paint_indicator.setShadowLayer(radius, shadow_dx, shadow_dy, color);
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -87,6 +99,7 @@ public class SimpleSwitchButton extends View {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
         radius_stroke = (getHeight() - getPaddingTop() - getPaddingBottom() - paint_stroke.getStrokeWidth()) * 0.5f;
+        radius_tint = radius_stroke + paint_stroke.getStrokeWidth() * 0.5f;
         radius_indicator = radius_stroke - paint_stroke.getStrokeWidth() * 0.5f;
         cx = getPaddingLeft() + paint_stroke.getStrokeWidth() + radius_indicator;
     }
@@ -111,7 +124,7 @@ public class SimpleSwitchButton extends View {
                 getPaddingTop(),
                 getWidth() - getPaddingRight(),
                 getHeight() - getPaddingBottom(),
-                radius_stroke, radius_stroke, paint_tint);
+                radius_tint, radius_tint, paint_tint);
 
         canvas.drawCircle(cx, getPaddingTop() + paint_stroke.getStrokeWidth() + radius_indicator,
                 radius_indicator, paint_indicator);
