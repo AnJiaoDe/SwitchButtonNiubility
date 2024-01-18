@@ -28,6 +28,7 @@ public class SimpleSwitchButton extends View {
     private OnCheckedChangeListener onCheckedChangeListener;
     private int color_alpha_start;
     private float radius_stroke, radius_tint;
+    private volatile boolean isLayoutCalled = false;
 
     public SimpleSwitchButton(Context context) {
         this(context, null);
@@ -83,7 +84,7 @@ public class SimpleSwitchButton extends View {
     }
 
     public void setColor_tint(int color_tint) {
-        paint_tint.setColor(Color.argb(isChecked?255:0,
+        paint_tint.setColor(Color.argb(isChecked ? 255 : 0,
                 Color.red(color_tint), Color.green(color_tint), Color.blue(color_tint)));
     }
 
@@ -102,8 +103,10 @@ public class SimpleSwitchButton extends View {
         radius_stroke = (getHeight() - getPaddingTop() - getPaddingBottom() - paint_stroke.getStrokeWidth()) * 0.5f;
         radius_tint = radius_stroke + paint_stroke.getStrokeWidth() * 0.5f;
         radius_indicator = radius_stroke - paint_stroke.getStrokeWidth() * 0.5f;
-        cx = isChecked? getWidth() - getPaddingRight() - paint_stroke.getStrokeWidth() - radius_indicator
-                :(getPaddingLeft() + paint_stroke.getStrokeWidth() + radius_indicator);
+        cx = isChecked ? getWidth() - getPaddingRight() - paint_stroke.getStrokeWidth() - radius_indicator
+                : (getPaddingLeft() + paint_stroke.getStrokeWidth() + radius_indicator);
+
+        isLayoutCalled = true;
     }
 
     @Override
@@ -171,7 +174,20 @@ public class SimpleSwitchButton extends View {
         isChecked = check;
         if (onCheckedChangeListener != null)
             onCheckedChangeListener.onCheckedChanged(this, isChecked);
-        valueAnimate();
+        ThreadUtils.getInstance().runThread(new ThreadUtils.RunnableCallback<Object>() {
+            @Override
+            public Object runThread() {
+                while (!isLayoutCalled) {
+                }
+                return null;
+            }
+
+            @Override
+            public void runUIThread(Object result) {
+                valueAnimate();
+            }
+        });
+
     }
 
     public boolean isChecked() {

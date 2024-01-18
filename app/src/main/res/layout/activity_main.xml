@@ -12,7 +12,6 @@
         android:layout_width="60dp"
         android:padding="5dp"
         app:cy_checked_="true"
-        android:id="@+id/SimpleSwitchButton"
         android:layout_height="35dp" />
     <com.cy.switchbuttonniubility.SimpleSwitchButton
         android:layout_width="70dp"
@@ -21,6 +20,7 @@
         app:cy_color_stroke="#ff0"
         app:cy_width_stroke="4dp"
         app:cy_color_indicator="#f00"
+        android:id="@+id/SimpleSwitchButton"
         app:cy_color_bg="#000"
         app:cy_color_tint="#00f"
         android:layout_marginTop="40dp"

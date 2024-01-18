@@ -16,8 +16,9 @@ public class MainActivity extends AppCompatActivity {
         simpleSwitchButton.setOnCheckedChangeListener(new SimpleSwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SimpleSwitchButton simpleSwitchButton, boolean isChecked) {
-//                LogUtils.log("onCheckedChanged",isChecked);
+                LogUtils.log("onCheckedChanged",isChecked);
             }
         });
+        simpleSwitchButton.setChecked(true);
     }
 }
