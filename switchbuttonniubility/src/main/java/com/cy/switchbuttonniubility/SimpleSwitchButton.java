@@ -29,6 +29,7 @@ public class SimpleSwitchButton extends View {
     private int color_alpha_start;
     private float radius_stroke, radius_tint;
     private volatile boolean isLayoutCalled = false;
+    private volatile boolean isDetached = false;
 
     public SimpleSwitchButton(Context context) {
         this(context, null);
@@ -169,6 +170,12 @@ public class SimpleSwitchButton extends View {
         return true;
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        isDetached = true;
+    }
+
     public void setChecked(boolean check) {
         if (isChecked == check) return;
         isChecked = check;
@@ -177,14 +184,16 @@ public class SimpleSwitchButton extends View {
         ThreadUtils.getInstance().runThread(new ThreadUtils.RunnableCallback<Object>() {
             @Override
             public Object runThread() {
-                while (!isLayoutCalled) {
+                while (!isLayoutCalled && !isDetached) {
                 }
                 return null;
             }
 
             @Override
             public void runUIThread(Object result) {
-                valueAnimate();
+//                LogUtils.log("runUIThread");
+                if (!isDetached)
+                    valueAnimate();
             }
         });
 
