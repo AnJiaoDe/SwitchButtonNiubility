@@ -162,9 +162,10 @@ public class SimpleSwitchButton extends View {
                 } else {
                     isChecked = event.getX() >= getWidth() * 0.5f;
                 }
+                valueAnimate();
+                //注意顺序，onCheckedChanged应该在valueAnimate后面，防止onCheckedChanged耗时操作导致动画延误显示，感觉很卡
                 if (lastChecked != isChecked && onCheckedChangeListener != null)
                     onCheckedChangeListener.onCheckedChanged(this, isChecked);
-                valueAnimate();
                 break;
         }
         return true;
@@ -179,6 +180,7 @@ public class SimpleSwitchButton extends View {
     public void setChecked(boolean check) {
         if (isChecked == check) return;
         isChecked = check;
+        //注意顺序，onCheckedChanged应该在valueAnimate后面，防止onCheckedChanged耗时操作导致动画延误显示，感觉很卡
         if (onCheckedChangeListener != null)
             onCheckedChangeListener.onCheckedChanged(this, isChecked);
         ThreadUtils.getInstance().runThread(new ThreadUtils.RunnableCallback<Object>() {
