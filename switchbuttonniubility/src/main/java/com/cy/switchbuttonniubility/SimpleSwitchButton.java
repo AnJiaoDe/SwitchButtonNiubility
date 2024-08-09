@@ -217,7 +217,6 @@ public class SimpleSwitchButton extends View {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
                     cx = (float) animation.getAnimatedValue();
-//                    LogUtils.log("onAnimationUpdate", cx);
                     int alpha = (int) (isChecked ? (color_alpha_start + (255 - color_alpha_start) * animation.getAnimatedFraction())
                             : (color_alpha_start - color_alpha_start * animation.getAnimatedFraction()));
                     int color = Color.argb(alpha,
