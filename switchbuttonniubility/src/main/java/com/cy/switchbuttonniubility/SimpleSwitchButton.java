@@ -165,7 +165,7 @@ public class SimpleSwitchButton extends View {
                 valueAnimate();
                 //注意顺序，onCheckedChanged应该在valueAnimate后面，防止onCheckedChanged耗时操作导致动画延误显示，感觉很卡
                 if (lastChecked != isChecked && onCheckedChangeListener != null)
-                    onCheckedChangeListener.onCheckedChanged(this, isChecked);
+                    onCheckedChangeListener.onCheckedChanged(this, isChecked,true);
                 break;
         }
         return true;
@@ -182,7 +182,7 @@ public class SimpleSwitchButton extends View {
         isChecked = check;
         //注意顺序，onCheckedChanged应该在valueAnimate后面，防止onCheckedChanged耗时操作导致动画延误显示，感觉很卡
         if (onCheckedChangeListener != null)
-            onCheckedChangeListener.onCheckedChanged(this, isChecked);
+            onCheckedChangeListener.onCheckedChanged(this, isChecked,false);
         ThreadUtils.getInstance().runThread(new ThreadUtils.RunnableCallback<Object>() {
             @Override
             public Object runThread() {
@@ -240,6 +240,6 @@ public class SimpleSwitchButton extends View {
     }
 
     public static interface OnCheckedChangeListener {
-        void onCheckedChanged(SimpleSwitchButton simpleSwitchButton, boolean isChecked);
+        void onCheckedChanged(SimpleSwitchButton simpleSwitchButton, boolean isChecked,boolean touching);
     }
 }
